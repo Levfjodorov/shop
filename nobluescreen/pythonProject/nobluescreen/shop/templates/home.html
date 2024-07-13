@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Featured Games</h1>
+<ul>
+    {% for game in featured_games %}
+        <li>
+            <a href="{% url 'product_detail' game.product.pk %}">
+                {{ game.product.name }} - {{ game.product.price }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

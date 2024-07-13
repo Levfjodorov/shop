@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Product Detail{% endblock %}
+
+{% block content %}
+<h1>{{ object.name }}</h1>
+<img src="{{ object.image.url }}" alt="{{ object.name }}">
+<p>{{ object.description }}</p>
+<p>Price: {{ object.price }}</p>
+<p>In Stock: {{ object.number_in_stock }}</p>
+<p>Rating: {{ object.total_rating }}</p>
+
+<h2>Feedback</h2>
+<ul>
+    {% for feedback in object.feedback_set.all %}
+        <li>{{ feedback.author.username }}: {{ feedback.text }} ({{ feedback.rating }} stars)</li>
+    {% endfor %}
+</ul>
+
+{% if user.is_authenticated %}
+    <a href="{% url 'feedback_create' %}?product={{ object.pk }}">Add Feedback</a>
+{% else %}
+    <p><a href="{% url 'login' %}">Login</a> to add feedback</p>
+{% endif %}
+{% endblock %}
